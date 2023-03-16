@@ -3,7 +3,7 @@
 ```
 npm run start
 ```
-Este comando realiza dois processamentos em paralelo: sobe o servidor e aciona a compilação de TypeScript (.ts) gerando js no destino (/dist/js).
+Este comando realiza dois processamentos em paralelo: sobe o servidor e aciona a compilação de TypeScript (.ts) gerando js no destino (/src/dist/js).
 
 ### Instação do TypeScript:
 
