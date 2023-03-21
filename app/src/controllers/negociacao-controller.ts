@@ -1,3 +1,4 @@
+import { domInjector } from "../decorators/dom-injector.js";
 import { inspect } from "../decorators/inspect.js";
 import { logarTempoDeExecucao } from "../decorators/logar-tempo-de-execucao.js";
 import { DiasDaSemana } from "../enums/dias-da-semana.js";
@@ -7,17 +8,23 @@ import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
 
 export class NegociacaoController {
+
+    @domInjector('#data')
     private inputData: HTMLInputElement;
+    @domInjector('#quantidade')
     private inputQuantidade: HTMLInputElement;
+    @domInjector('#valor')
     private inputValor: HTMLInputElement;
+    
     private negociacoes = new Negociacoes();
     private negociacoesView = new NegociacoesView('#negociacoesView');
     private mensagemView = new MensagemView('#mensagemView');
 
     constructor() {
-        this.inputData = document.querySelector('#data') as HTMLInputElement //casting modo 1
-        this.inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade') //casting modo 2
-        this.inputValor = document.querySelector('#valor') as HTMLInputElement
+        // comentado devido injeção realizada pelo decorator criado @domInjector, atribuindo nas props acima
+        // this.inputData = document.querySelector('#data') as HTMLInputElement //casting modo 1
+        // this.inputQuantidade = <HTMLInputElement>document.querySelector('#quantidade') //casting modo 2
+        // this.inputValor = document.querySelector('#valor') as HTMLInputElement
         this.negociacoesView.update(this.negociacoes)
     }
 
