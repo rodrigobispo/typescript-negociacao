@@ -12,11 +12,13 @@ import { Negociacao } from "../models/negociacao.js";
 import { Negociacoes } from "../models/negociacoes.js";
 import { MensagemView } from "../views/mensagem-view.js";
 import { NegociacoesView } from "../views/negociacoes-view.js";
+import NegociacoesService from "../services/negociacoes-service.js";
 export class NegociacaoController {
     constructor() {
         this.negociacoes = new Negociacoes();
         this.negociacoesView = new NegociacoesView('#negociacoesView');
         this.mensagemView = new MensagemView('#mensagemView');
+        this.negociacaoService = new NegociacoesService;
         this.negociacoesView.update(this.negociacoes);
     }
     adiciona() {
@@ -30,13 +32,8 @@ export class NegociacaoController {
         this.atualizaView();
     }
     importaDados() {
-        fetch('http://localhost:8080/dados')
-            .then(res => res.json())
-            .then((dados) => {
-            return dados.map(dadoDeHoje => {
-                return new Negociacao(new Date(), dadoDeHoje.vezes, dadoDeHoje.montante);
-            });
-        })
+        this.negociacaoService
+            .obterNegociacoesDoDia()
             .then(negociacoesDeHoje => {
             for (let negociacao of negociacoesDeHoje) {
                 this.negociacoes.adiciona(negociacao);
