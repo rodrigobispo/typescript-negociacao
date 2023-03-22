@@ -21,7 +21,7 @@ export class NegociacaoController {
     }
     adiciona() {
         const negociacao = Negociacao.build(this.inputData.value, this.inputQuantidade.value, this.inputValor.value);
-        if (!this.isDiaUtil(negociacao.data)) {
+        if (!this.ehDiaUtil(negociacao.data)) {
             this.mensagemView.update('Apenas negociações em dias úteis são aceitas.');
             return;
         }
@@ -29,7 +29,22 @@ export class NegociacaoController {
         this.limparFormulario();
         this.atualizaView();
     }
-    isDiaUtil(data) {
+    importaDados() {
+        fetch('http://localhost:8080/dados')
+            .then(res => res.json())
+            .then((dados) => {
+            return dados.map(dadoDeHoje => {
+                return new Negociacao(new Date(), dadoDeHoje.vezes, dadoDeHoje.montante);
+            });
+        })
+            .then(negociacoesDeHoje => {
+            for (let negociacao of negociacoesDeHoje) {
+                this.negociacoes.adiciona(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
+    }
+    ehDiaUtil(data) {
         return data.getDay() > DiasDaSemana.DOMINGO && data.getDay() < DiasDaSemana.SABADO;
     }
     limparFormulario() {
