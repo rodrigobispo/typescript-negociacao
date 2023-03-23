@@ -1,6 +1,6 @@
-import Impressora from "../interfaces/impressora.js";
+import Modelo from "../interfaces/modelo.js";
 
-export class Negociacao implements Impressora {
+export class Negociacao implements Modelo<Negociacao> {
 
     constructor(
         private _data: Date,
