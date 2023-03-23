@@ -1,3 +1,10 @@
+## O Projeto
+
+1. Trata-se de uma tela simples com três campos de "Negociação" para inclusão numa lista, oferencendo suficientemente a prática de Typescript com as melhores práticas.
+2. Não há acesso a banco de dados. A inclusão realizada em lista é feita em memória no domínio/model específico.
+3. Há uso de importação de dados json para adicionar os dados na lista da tela.
+
+
 ### Execução do projeto:
 
 Na pasta do projeto informar o comando:
